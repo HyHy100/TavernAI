@@ -396,9 +396,10 @@ async function prepareOpenAIMessages(name2, storyString, worldInfoBefore, worldI
     openai_msgs_tosend.reverse();
 
     console.log(openai_msgs_tosend);
-
-    openai_msgs_tosend = [start_mes, prompt_msg, ...examples_tosend, ...null_prompt_mes, new_chat_msg, ...openai_msgs_tosend]
-
+    
+    if (oai_settings.null_prompt) openai_msgs_tosend = [start_mes, prompt_msg, ...examples_tosend, ...null_prompt_mes, new_chat_msg, ...openai_msgs_tosend]
+    else openai_msgs_tosend = [start_mes, prompt_msg, ...examples_tosend, new_chat_msg, ...openai_msgs_tosend]
+    
     console.log(openai_msgs_tosend);
 
     if (oai_settings.jailbreak_system) {
