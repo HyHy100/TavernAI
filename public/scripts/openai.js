@@ -596,11 +596,12 @@ function loadOpenAISettings(data, settings) {
     $('#wrap_in_quotes').prop('checked', oai_settings.wrap_in_quotes);
     $('#nsfw_first').prop('checked', oai_settings.nsfw_first);
     $('#jailbreak_system').prop('checked', oai_settings.jailbreak_system);
+    $('#null_toggle').prop('checked', oai_settings.null_prompt);
 
     if (settings.main_prompt !== undefined) oai_settings.main_prompt = settings.main_prompt;
     if (settings.nsfw_prompt !== undefined) oai_settings.nsfw_prompt = settings.nsfw_prompt;
     if (settings.last_system_prompt !== undefined) oai_settings.last_system_prompt = settings.last_system_prompt;
-
+    
     $('#main_prompt_textarea').val(oai_settings.main_prompt);
     $('#nsfw_prompt_textarea').val(oai_settings.nsfw_prompt);
     $("#last_sysprompt_textarea").val(oai_settings.last_system_prompt);
