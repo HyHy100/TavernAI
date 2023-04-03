@@ -273,8 +273,12 @@ async function prepareOpenAIMessages(name2, storyString, worldInfoBefore, worldI
     // todo: static value, maybe include in the initial context calculation
     let new_chat_msg = { "role": "system", "content": "[Start a new chat]" };
     let start_chat_count = countTokens([new_chat_msg], true);
-    let total_count = countTokens([start_mes, prompt_msg, ...null_prompt_mes], true) + start_chat_count;
-
+    
+    let total_count = 0;
+    
+    if (oai_settings.null_prompt) total_count = countTokens([start_mes, prompt_msg, ...null_prompt_mes], true) + start_chat_count;
+    else total_count = countTokens([start_mes, prompt_msg], true) + start_chat_count;
+    
     const null_ooc_messages = [{
         "role": 'assistant',
         "content": '(OOC: Aknowledged. Tell me when you would like to proceed.)'
