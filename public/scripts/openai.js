@@ -292,7 +292,8 @@ async function prepareOpenAIMessages(name2, storyString, worldInfoBefore, worldI
 
     if (oai_settings.jailbreak_system) {
         // Count all jailbreak tokens
-        total_count += countTokens([...lastSystemMessage, jailbreak, ...null_ooc_messages], true);
+        if (oai_settings.null_prompt) total_count += countTokens([...lastSystemMessage, jailbreak, ...null_ooc_messages], true);
+        else total_count += countTokens([...lastSystemMessage, jailbreak], true);
     }
 
     if (bias && bias.trim().length) {
@@ -401,7 +402,8 @@ async function prepareOpenAIMessages(name2, storyString, worldInfoBefore, worldI
     console.log(openai_msgs_tosend);
 
     if (oai_settings.jailbreak_system) {
-        openai_msgs_tosend = [...openai_msgs_tosend, ...null_ooc_messages, ...lastSystemMessage, jailbreak];
+        if (oai_settings.null_prompt) openai_msgs_tosend = [...openai_msgs_tosend, ...null_ooc_messages, ...lastSystemMessage, jailbreak];
+        else openai_msgs_tosend = [...openai_msgs_tosend, ...lastSystemMessage, jailbreak];
     }
 
     console.log("We're sending this:")
